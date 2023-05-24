@@ -1,7 +1,7 @@
 /** @format */
 
 const getCurrent = (req, res) => {
-  const { name, email, subscription } = req.user;
+  const { name, email, subscription, avatarURL } = req.user;
   res.json({
     status: "success",
     code: 200,
@@ -9,6 +9,7 @@ const getCurrent = (req, res) => {
       name,
       email,
       subscription,
+      avatarURL,
     },
   });
 };

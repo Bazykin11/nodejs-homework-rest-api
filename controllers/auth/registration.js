@@ -2,7 +2,8 @@
 
 const User = require("../../models/user");
 const bcrypt = require("bcrypt");
-const {RequestError} = require("../../helpers");
+const { RequestError } = require("../../helpers");
+const gravatar = require("gravatar");
 
 const registration = async (req, res) => {
   const { email, password, subscription } = req.body;
@@ -11,13 +12,16 @@ const registration = async (req, res) => {
     if (user) {
       throw RequestError(409, `This ${email} is already in use`);
     }
+  
+   const avatarURL = gravatar.url(email);
 
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
   const result = await User.create({
     email,
     password: hashedPassword,
-    subscription
+    subscription,
+    avatarURL
   });
   res.status(201).json({
     email: result.email,

@@ -27,6 +27,10 @@ const schema = Schema({
     type: String,
     default: "",
   },
+  avatarURL: {
+    type: String,
+    default:"",
+  },
 });
 
 const User = model('user', schema)
